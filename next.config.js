@@ -4,7 +4,7 @@ const nextConfig = {
   async rewrites() {
     return [
       {
-        source: '*',
+        source: '/api/:path*',
         destination: 'https://webtechcnu.netlify.app'
       }
     ]
