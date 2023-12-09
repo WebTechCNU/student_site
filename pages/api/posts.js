@@ -13,6 +13,8 @@ export default async function handler(req, res) {
         case 'GET':
             const posts = await db.collection('posts').find({}).toArray();
             res.setHeader('Access-Control-Allow-Origin', '*');
+            res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+            res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,DELETE,PUT');
             res.status(200).json(posts);
             break;
         case 'POST':
