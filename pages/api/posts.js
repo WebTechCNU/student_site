@@ -12,11 +12,13 @@ export default async function handler(req, res) {
     switch (req.method) {
         case 'GET':
             const posts = await db.collection('posts').find({}).toArray();
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.status(200).json(posts);
             break;
         case 'POST':
             const newPost = req.body;
             const result = await db.collection('posts').insertOne(newPost);
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.status(201).json(result.ops[0]);
             break;
         case 'PUT':
@@ -25,12 +27,14 @@ export default async function handler(req, res) {
                 { _id: new ObjectId(id) },
                 { $set: data }
             );
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.status(200).json(resultPut);
             break;
         case 'DELETE':
             const resultDelete = await db.collection('posts').deleteOne({
                 _id: new ObjectId(req.body.id),
             });
+            res.setHeader('Access-Control-Allow-Origin', '*');
             res.status(200).json(resultDelete);
             break;
         default:
