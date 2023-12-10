@@ -19,13 +19,13 @@ export default async function handler(req, res) {
             res.status(200).json(postsOpt);
             break;
         case 'POST':
-            const newPost = req.body;
+            const newPost =  JSON.parse(req.body);
             const result = await db.collection('posts').insertOne(newPost);
             res.setHeader('Access-Control-Allow-Origin', '*');
-            res.status(201).json(result.ops[0]);
+            res.status(201).json(result.insertedId);
             break;
         case 'PUT':
-            const { id, ...data } = req.body;
+            const { id, ...data } = JSON.parse(req.body);
             const resultPut = await db.collection('posts').updateOne(
                 { _id: new ObjectId(id) },
                 { $set: data }
