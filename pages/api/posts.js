@@ -17,7 +17,7 @@ const allowCors = fn => async (req, res) => {
     return await fn(req, res)
   }
 
-export default async function handler(req, res) {
+const handler = async (req, res) => {
     const client = new MongoClient(process.env.MONGODB_URI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -62,3 +62,5 @@ export default async function handler(req, res) {
 
     await client.close();
 }
+
+module.exports = allowCors(handler)
